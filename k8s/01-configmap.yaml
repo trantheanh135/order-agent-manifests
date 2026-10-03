@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-agent-config
+  namespace: order-agent
+data:
+  POSTGRES_DB: order_agent
+  POSTGRES_USER: postgres
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/order_agent
+  SPRING_DATASOURCE_USERNAME: postgres
+  SPRING_JPA_SHOW_SQL: "false"
+  LOGGING_LEVEL_ORG_HIBERNATE_SQL: INFO
+  LOGGING_LEVEL_COM_ORDERAGENT: INFO
+  ADMIN_BOOTSTRAP_EMAIL: admin@order-agent.local

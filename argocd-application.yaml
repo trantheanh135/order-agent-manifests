@@ -1,0 +1,21 @@
+# Apply once to the cluster: kubectl apply -f argocd-application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: order-agent
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/trantheanh135/order-agent-manifests
+    targetRevision: main
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: order-agent
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

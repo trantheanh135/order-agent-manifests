@@ -1,0 +1,74 @@
+# Requires Secret "order-agent-secret" (keys POSTGRES_PASSWORD, JWT_SECRET,
+# ADMIN_BOOTSTRAP_PASSWORD), created out-of-band, not in git.
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: order-agent
+spec:
+  type: NodePort
+  selector:
+    app: backend
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30881
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: order-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/trantheanh135/order-agent-backend:latest
+          ports:
+            - containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: order-agent-config
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: order-agent-secret
+                  key: POSTGRES_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: order-agent-secret
+                  key: JWT_SECRET
+            - name: ADMIN_BOOTSTRAP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: order-agent-secret
+                  key: ADMIN_BOOTSTRAP_PASSWORD
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 40
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests: {memory: 384Mi, cpu: 250m}
+            limits: {memory: 768Mi, cpu: 1000m}
