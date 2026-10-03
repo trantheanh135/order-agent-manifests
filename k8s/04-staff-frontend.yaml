@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: staff-frontend
-          image: ghcr.io/trantheanh135/order-agent-staff-frontend:e25d928e044442d295f42498dfdc43522ba1829d
+          image: ghcr.io/trantheanh135/order-agent-staff-frontend:3f5fc1e86a3251471cbc4eceb36a45da8b96e7ce
           ports:
             - containerPort: 80
           readinessProbe:
