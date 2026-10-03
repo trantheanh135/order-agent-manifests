@@ -8,3 +8,5 @@ resources:
   - k8s/01-configmap.yaml
   - k8s/02-postgres.yaml
   - k8s/03-backend.yaml
+  - k8s/04-staff-frontend.yaml
+  - k8s/05-customer-frontend.yaml

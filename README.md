@@ -7,3 +7,6 @@ Secret `order-agent-secret` (POSTGRES_PASSWORD, JWT_SECRET, ADMIN_BOOTSTRAP_PASS
 created out-of-band with kubectl and is intentionally not stored here.
 
 Backend: http://192.168.1.100:30881 (health: /actuator/health)
+
+Staff site:    http://192.168.1.100:30882 (React + nginx, proxies /api to the backend)
+Customer site: http://192.168.1.100:30883
