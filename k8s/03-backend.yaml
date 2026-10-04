@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/trantheanh135/order-agent-backend:c32aa8873135105aca2711ea8d2ca3c737dd7638
+          image: ghcr.io/trantheanh135/order-agent-backend:319b089fb01be7db0378894e39dd62caa734647b
           ports:
             - containerPort: 8081
           envFrom:
