@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: customer-frontend
-          image: ghcr.io/trantheanh135/order-agent-customer-frontend:a7467864f89d7449cf7ab98a7ec4100d6c43799c
+          image: ghcr.io/trantheanh135/order-agent-customer-frontend:47c44dea2bdbabe6fd2642f2078fb4998c35e3bb
           ports:
             - containerPort: 80
           readinessProbe:
